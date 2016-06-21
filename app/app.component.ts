@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ChangeDetectorRef} from '@angular/core';
 
 declare function fetch(url);
 
@@ -9,9 +9,12 @@ declare function fetch(url);
 export class AppComponent {
     public json: string;
 
+    public constructor(private _changeDetector: ChangeDetectorRef) {}
+
     public ngOnInit() {
         fetch("test.json")
             .then(response => response.json())
-            .then(json => this.json = JSON.stringify(json));
+            .then(json => this.json = JSON.stringify(json))
+            //.then(_ => this._changeDetector.detectChanges());
     }
 }
